@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<button type="button" name="button" id="oBtn1">按钮1</button>
+<button type="button" name="button" id="oBtn2">按钮2</button>
+</body>
+<script type="text/javascript">
+  // if (navigator.geolocation) {
+  //   alert('此设备支持地理定位功能！');
+  // } else {
+  //   alert("暂不支持地理定位功能！");
+  // }
+  // 获取当前地理位置
+  // navigator.geolocation.getCurrentPosition(fnSuccess,fnFail)
+  // 只是获取一次位置信息
+  // 其中第一个参数为成功获取地理位置后所执行的回调函数，第二个参数为获取位置失败后执行的函数
+  // 当获取位置成功后，会有一个事件对象，里面会有我们将会用到的数据。
+  // ev.coords.longitude 经度
+  // ev.coords.latitude  纬度
+  // ev.coords.altitude  海拔
+  // ev.coords.heading  方向
+  // ev.coords.speed  速度
+  // ev.coords.altitudeAccuracy  高度的准确性
+
+  // 当获取位置失败后，也会有一个事件对象，里面存着相关状态码和失败信息。
+  // ev.coords 错误代码
+  // 0 位置错误
+  // 1 用户拒绝
+  // 2 超时（获取地理位置超时）
+  // ev.message 错误信息
+
+  // navigator.geolocation.watchPosition(fnSuccess,fnFail)
+  // 监视位置变化，频繁的去监视（若位置改变就触发，不是按照时间监视的）
+
+  // 停止获取当前用户的地理位置信息
+  // navigator.geolocation.clearWatch(需要停止的名)
+  var oBtn1 = document.getElementById('oBtn1');
+  var oBtn2 = document.getElementById('oBtn2');
+  var timer = null;
+  oBtn1.onclick = function () {
+    if (navigator.geolocation) {
+      timer = navigator.geolocation.watchPosition(function (ev) {
+        console.log(ev.coords);
+      },function (ev) {
+        console.log('错误状态码'+ ev.code + '错误信息' + ev.message);
+      })
+    } else {
+      console.log('不支持geolocation');
+    }
+  };
+  oBtn2.onclick = function () {
+    navigator.geolocation.clearWatch(timer);
+  };
+
+</script>
+
+</html>
