@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <title>不带检索功能的信息窗口</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=qp0OksxVOOe1rwQ3zxN9ygPfydzQVZvW"></script>
+    <style type="text/css">
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+        //百度地图
+        var map = new BMap.Map("map");
+        var point = new BMap.Point(120.181756, 30.29542);
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+        map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
+        map.centerAndZoom(point, 16);
+    </script>
+</body>
+
+</html>

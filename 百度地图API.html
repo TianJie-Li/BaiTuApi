@@ -2,27 +2,28 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>百度地图API</title>
-  <style media="screen">
-    #box {
-      width: 400px;
-      height: 200px;
-      background-color: #ccc;
-      border: 1px solid #666;
-      margin-bottom: 20px;
-    }
-  </style>
-  <!-- 2. 在页面导入百度地图API的脚本文件 -->
-  <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=qp0OksxVOOe1rwQ3zxN9ygPfydzQVZvW"></script>
+    <meta charset="utf-8">
+    <title>百度地图API</title>
+    <style media="screen">
+        #box {
+            width: 400px;
+            height: 200px;
+            background-color: #ccc;
+            border: 1px solid #666;
+            margin-bottom: 20px;
+        }
+    </style>
+    <!-- 2. 在页面导入百度地图API的脚本文件 -->
+    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=qp0OksxVOOe1rwQ3zxN9ygPfydzQVZvW"></script> -->
+    <script type="text/javascript" src="http://api.map.baidu.com/getscript?v=2.0&ak=qp0OksxVOOe1rwQ3zxN9ygPfydzQVZvW"></script>
 </head>
 
 <body>
 
-  <!-- 1  在html页面创建一个box用来显示地图 -->
-  <div id="box"></div>
-  <input type="text" placeholder="请输入搜索内容" id='txt' name="" value="">
-  <input type="button" name="" value="搜索" id='btn'>
+    <!-- 1  在html页面创建一个box用来显示地图 -->
+    <div id="box"></div>
+    <input type="text" placeholder="请输入搜索内容" id='txt' name="" value="">
+    <input type="button" name="" value="搜索" id='btn'>
 </body>
 <!-- <script type="text/javascript">
   // 3. 创建地图对象，设置坐标（这里我们先定死一个位置），设定放大倍数（一般数值15即可）
@@ -50,40 +51,45 @@
   var local = new BMap.LocalSearch(map,{renderOptions: {map:map,autoViewport: false}});
   local.searchNearby('银行',oPointer,1000);
 </script> -->
-  <script type="text/javascript">
-  //获取页面内的相关元素
+<script type="text/javascript">
+    //获取页面内的相关元素
     var oT = document.getElementById('txt');
     var oBtn = document.getElementById('btn');
-  // 创建一个地图实例
+    // 创建一个地图实例
     var map = new BMap.Map('box');
 
     //定义一个变量，方便我们以后在点击搜索按钮后设置坐标
     var oPointer = null;
-    oBtn.onclick = function () {
-      if (navigator.geolocation) {
-        //设置监听事件，当我们的地理位置发生变化后，触发并获取事件信息
-        navigator.geolocation.watchPosition(function (ev) {
-          //将我们获取的经度与纬度，存入变量
-          var longitude = ev.coords.longitude;
-          var latitude = ev.coords.latitude;
-          // 传入我们的经纬坐标
-          oPointer = new BMap.Point(longitude,latitude);
-          //设置缩放比例
-          map.centerAndZoom(oPointer,15);
-          //在地图上显示坐标点
-          var marker = new BMap.Marker(oPointer);
-          map.addOverlay(marker);
-          map.enableScrollWheelZoom(true);
-          var local = new BMap.LocalSearch(map,{renderOptions:{map:map,autoViewport:false}});
-          // 将我们输入框中的内容传入
-          local.searchNearby(oT.value,oPointer,1000);
-        },function (ev) {
-          alert('错误状态码' + ev.code + '错误信息' + ev.message);
-        });
-      }else {
-        alert('你的设备不支持H5地理定位功能！');
-      }
+    oBtn.onclick = function() {
+        if (navigator.geolocation) {
+            //设置监听事件，当我们的地理位置发生变化后，触发并获取事件信息
+            navigator.geolocation.watchPosition(function(ev) {
+                //将我们获取的经度与纬度，存入变量
+                var longitude = ev.coords.longitude;
+                var latitude = ev.coords.latitude;
+                // 传入我们的经纬坐标
+                oPointer = new BMap.Point(longitude, latitude);
+                //设置缩放比例
+                map.centerAndZoom(oPointer, 15);
+                //在地图上显示坐标点
+                var marker = new BMap.Marker(oPointer);
+                map.addOverlay(marker);
+                map.enableScrollWheelZoom(true);
+                var local = new BMap.LocalSearch(map, {
+                    renderOptions: {
+                        map: map,
+                        autoViewport: false
+                    }
+                });
+                // 将我们输入框中的内容传入
+                local.searchNearby(oT.value, oPointer, 1000);
+            }, function(ev) {
+                alert('错误状态码' + ev.code + '错误信息' + ev.message);
+            });
+        } else {
+            alert('你的设备不支持H5地理定位功能！');
+        }
     }
-  </script>
+</script>
 
 </html>
