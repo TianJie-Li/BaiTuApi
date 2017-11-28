@@ -28,14 +28,33 @@
 <body>
     <div id="map"></div>
     <script type="text/javascript">
-        //百度地图
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>中鲜网(北京)咨询服务有限公司 </h4>" +
+            "" +
+            "<p style='margin:0;line-height:1.5;font-size:12px;width:410px;color:#888888;'>中鲜网咨询服务有限公司 <br />电话：010-53670731<br />手机：13683650928<br />网址：www.cnshengxian.com</p>" +
+            "</div>";
+
         var map = new BMap.Map("map");
-        var point = new BMap.Point(120.181756, 30.29542);
+        var point = new BMap.Point(116.610106, 39.930035);
+        var infoWindow = new BMap.InfoWindow(sContent); // 创建信息窗口对象
         var marker = new BMap.Marker(point);
         map.addOverlay(marker);
+        marker.addEventListener("click", function() {
+            LoadInfoWindow(this, infoWindow);
+        });
+
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
         map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
         map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
-        map.centerAndZoom(point, 16);
+        map.centerAndZoom(point, 15);
+
+        function LoadInfoWindow(marker, infoWindow) {
+            marker.openInfoWindow(infoWindow);
+            //图片加载完毕重绘infowindow
+            document.getElementById('imgDemo').onload = function() {
+                infoWindow.redraw();
+            }
+        }
     </script>
 </body>
 
